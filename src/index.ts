@@ -2,8 +2,12 @@ import AgentAPI from "apminsight";
 AgentAPI.config();
 
 import express from "express";
-import subjectRouter from "./routes/subjects.js";
 import cors from "cors";
+
+import classRouter from "./routes/classes.js";
+import subjectRouter from "./routes/subjects.js";
+import userRouter from "./routes/users.js";
+
 import securityMiddleware from "./middleware/security.js";
 import { toNodeHandler } from "better-auth/node";
 import { auth } from "./lib/auth.js";
@@ -26,7 +30,9 @@ app.use(express.json());
 
 app.use(securityMiddleware);
 
+app.use("/api/classes", classRouter);
 app.use("/api/subjects", subjectRouter);
+app.use("/api/users", userRouter);
 
 app.get("/", (_req, res) => {
   res.status(200).json({ message: "Classroom backend is running." });
