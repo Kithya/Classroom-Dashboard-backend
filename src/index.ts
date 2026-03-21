@@ -28,11 +28,12 @@ app.all("/api/auth/*splat", toNodeHandler(auth));
 
 app.use(express.json());
 
-app.use(securityMiddleware);
 
 app.use("/api/classes", classRouter);
 app.use("/api/subjects", subjectRouter);
 app.use("/api/users", userRouter);
+
+app.use(securityMiddleware);
 
 app.get("/", (_req, res) => {
   res.status(200).json({ message: "Classroom backend is running." });
